@@ -1,13 +1,16 @@
 # OpenMontage - Global Configuration
 
 llm:
-  provider: anthropic            # anthropic | openai | gemini | openrouter | ollama | mistral | minimax
-  model: null                    # null = use provider default
+  # router = local llm_router.py (Groq -> Google AI Studio -> Ollama, manual/auto
+  # via LLM_ROUTING_MODE in .env). Endpoint: LLM_ROUTER_BASE_URL (default
+  # http://127.0.0.1:4000/v1). Used by lib/llm_client.py.
+  provider: router               # router | anthropic | openai | gemini | openrouter | ollama | mistral | minimax
+  model: auto-router             # auto-router | auto-router-fast | <provider>/<model> (e.g. groq/llama-3.1-8b-instant)
   temperature: 0.7
   max_tokens: 4096
 
 budget:
-  mode: warn                     # observe | warn | cap
+  mode: cap                      # observe | warn | cap
   total_usd: 10.00
   reserve_pct: 0.10              # holdback for retries / cleanup
   single_action_approval_usd: 0.50
@@ -21,7 +24,7 @@ output:
   default_format: mp4
   default_codec: libx264
   default_audio_codec: aac
-  default_resolution: "1920x1080"
+  default_resolution: "1080x1920"   # 9:16 Shorts/Reels; use 1920x1080 for long-form
   default_fps: 30
   default_crf: 23
 

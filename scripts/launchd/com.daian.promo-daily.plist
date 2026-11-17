@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Nightly Kawaii promo run (scripts/promo_daily.py) at __HOUR__:__MINUTE__.
+     A LaunchAgent (not a daemon) so Godot can open its capture window in your login session.
+     If the Mac was asleep at that time, launchd runs it once when it wakes. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.daian.promo-daily</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>__REPO__/.venv/bin/python</string>
+    <string>__REPO__/scripts/promo_daily.py</string>
+  </array>
+  <key>WorkingDirectory</key><string>__REPO__</string>
+  <key>EnvironmentVariables</key>
+  <dict><key>PATH</key><string>__PATH__</string></dict>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key><integer>__HOUR__</integer>
+    <key>Minute</key><integer>__MINUTE__</integer>
+  </dict>
+  <key>StandardOutPath</key><string>__REPO__/projects/logs/promo_daily.out.log</string>
+  <key>StandardErrorPath</key><string>__REPO__/projects/logs/promo_daily.out.log</string>
+</dict>
+</plist>

@@ -1,0 +1,23 @@
+# Japanese audience. Locale settings only so far; app copy comes after the Vietnamese
+# round (add an `apps:` section like vi.yaml, review: draft).
+# Voice: ElevenLabs (paid) with Kawaii Stories' ja narrator on eleven_v3 (fewest kanji
+# misreadings in its tests; see kawaii-stories/docs/audio.md). Piper has no Japanese voice.
+locale:
+  name: Japanese
+  ui: ja
+  tts: elevenlabs
+  voice_id: 3JDquces8E8bkmvbh6Bc
+  model: eleven_v3
+  language_code: ja
+  cjk: true
+  banned_terms: [無料, 最高, No.1, ナンバーワン, ペラペラ]
+  sticker_font: "/System/Library/Fonts/STHeiti Medium.ttc"
+  language_names: {zh: 中国語, en: 英語, ja: 日本語, vi: ベトナム語}
+  stickers:
+    challenge: "解けるかな？"
+    run: "スタート！"
+    tada: "できた！"
+    experiment: "実験タイム！"
+    speed: "{rate}倍速"
+    step_by_step: "ステップごとに"
+apps: {}

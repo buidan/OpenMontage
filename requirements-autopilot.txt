@@ -1,0 +1,4 @@
+# Extra dependencies for llm_router.py + run_pipeline.py (on top of requirements.txt)
+httpx>=0.27              # llm_router upstream client (also pulled in by openai)
+piper-tts>=1.2           # offline narration; then: python -m piper.download_voices --download-dir ~/.piper/models en_US-lessac-medium
+google-auth-oauthlib>=1.2  # one-time YouTube OAuth (python run_pipeline.py --authorize youtube)

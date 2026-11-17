@@ -1,0 +1,250 @@
+# Kawaii app promo registry (docs/kawaii_ai_video_pipeline_prd.md).
+#
+# approved_claims is the ONLY source of product claims the LLM may use in hooks,
+# captions and descriptions. Keep it factual; no statistics unless you can cite them.
+# made_for_kids sets YouTube's COPPA flag. Promos are written for parents, so the
+# default is false; set true for any template whose video is mainly a kids' episode.
+
+godot: /Applications/Godot.app/Contents/MacOS/Godot
+games_dir: /Users/macos/Documents/projects/daian/games
+fps: 30
+size: [1080, 1920]
+trim_start: 0.5            # PRD FR-G3: drop the first half second (scene load)
+
+apps:
+  stories:
+    display_name: Kawaii Stories
+    repo: kawaii-stories
+    status: ready
+    template: story_cliffhanger
+    made_for_kids: false
+    audience: parents of children aged 4-10
+    stores: [App Store, Google Play]
+    store_urls: {}           # add App Store / Google Play links when live
+    cta: "Coming soon to the App Store & Google Play"
+    end_card: design/promo/end_card.png   # 1080x1920 Stitch design in the app repo; text card if missing
+    capture:
+      scene: tests/promo/promo.tscn
+      args: [--fresh, "--lang={ui}", "--target={target}", "--story={story}", --autoread,
+             --hold-choice, --no-curl, "--promo-hold-choice={hold}", "--pace={pace}"]
+      defaults: {ui: en, target: zh, story: ch01_morning_walk, hold: 4, pace: 1.2}
+      max_seconds: 180
+    language_names: {zh: Chinese, en: English, ja: Japanese}
+    targets: [zh, en, ja]    # `run_promo.py batch` makes one Stories promo per learning language
+    approved_claims:
+      - "Kids learn {language} through short illustrated stories"
+      - "Every line is read aloud, with a translation underneath"
+      - "Kids can tap any word to hear it"
+      - "Kids choose what happens next, and stories have different endings"
+      - "Stories are available in Chinese, English and Japanese"
+      - "Works offline"
+    theme:                   # Remotion themeConfig for hook / end cards (cozy clay palette)
+      backgroundColor: "#FEF8F1"
+      surfaceColor: "#FFFFFF"
+      textColor: "#3B2F2F"
+      mutedTextColor: "#7A6A64"
+      primaryColor: "#5FAE8C"
+      accentColor: "#F08A7E"
+      captionHighlightColor: "#F08A7E"
+      captionBackgroundColor: "rgba(255, 255, 255, 0.88)"
+    fallback_copy:           # used when no LLM provider is reachable
+      hook: "Bedtime stories that teach your child {language}."
+      hook_overlay: "Stories that teach {language}"
+      outro: "Where will {hero} go next? Find out in Kawaii Stories, coming soon."
+
+  # Phase 1: generic PromoBot (tests/promo/) wrapping each app's own --autoplay bot; the PRD
+  # templates render as gameplay_showcase until their event-rich PromoBots exist.
+  # Claims come from each app's CLAUDE.md / what the capture shows; review before publishing.
+  math:
+    display_name: Kawaii Math
+    repo: kawaii-math
+    status: ready
+    template: timed_challenge
+    made_for_kids: false
+    audience: parents of children aged 5-12
+    stores: [App Store, Google Play]
+    cta: "Coming soon to the App Store & Google Play"
+    end_card: design/promo/end_card.png
+    hook_frame_at: 1.0
+    context: "Maestro Bun asking a word problem with a comparison bar model, the child picking the right answer, then a Quest Complete screen with stars"
+    capture:
+      scene: tests/promo/promo.tscn
+      args: ["--promo-scene=res://scenes/lesson.tscn", "--promo-max={max}", --promo-tail=2.5,
+             --fresh, "--lang={ui}", "--lesson={lesson}", --autoplay, "--think={think}", "--pace={pace}"]
+      defaults: {ui: en, lesson: g3_m2_l04, max: 30, think: 3.5, pace: 2.5}
+      max_seconds: 60
+    approved_claims:
+      - "Singapore-method math lessons for kids from kindergarten to grade 6"
+      - "Maestro Bun guides every lesson"
+      - "Word problems with bar models that show the thinking"
+    fallback_copy:
+      hook: "Can your child solve this with a bar model?"
+      hook_overlay: "Math, the Singapore way"
+      outro: "Math lessons with Maestro Bun. Kawaii Math, coming soon."
+
+  code:
+    display_name: Kawaii Code
+    repo: kawaii-code
+    status: ready
+    template: logic_execution
+    made_for_kids: false
+    audience: parents of children aged 5-14
+    stores: [App Store, Google Play]
+    cta: "Coming soon to the App Store & Google Play"
+    end_card: design/promo/end_card.png
+    hook_frame_at: 2.0
+    context: "a block-coding puzzle: Move, Repeat and If blocks build a program that sends the character to collect carrots, ending with three stars"
+    capture:
+      scene: tests/promo/promo.tscn
+      args: ["--promo-scene=res://scenes/play.tscn", "--promo-max={max}", --promo-tail=2.5,
+             --fresh, "--lang={ui}", "--lesson={lesson}", --autoplay, "--pace={pace}"]
+      defaults: {ui: en, lesson: g2_m3_l05, max: 35, pace: 1.2}
+      max_seconds: 60
+    approved_claims:
+      - "Block-coding puzzles for kids from kindergarten up"
+      - "Kids build programs with blocks like Move, Repeat and If"
+      - "Maestro Bun guides every lesson"
+    fallback_copy:
+      hook: "Your child's first program, one block at a time."
+      hook_overlay: "Coding, one block at a time"
+      outro: "Coding puzzles with Maestro Bun. Kawaii Code, coming soon."
+
+  iq:
+    display_name: Kawaii IQ
+    repo: kawaii-iq
+    status: ready
+    template: brain_teaser
+    made_for_kids: false
+    audience: parents of children aged 5-14
+    stores: [App Store, Google Play]
+    cta: "Coming soon to the App Store & Google Play"
+    end_card: design/promo/end_card.png
+    hook_frame_at: 2.5
+    context: "a spatial puzzle: a flat net of tiles folds into a cube, and the child picks which cube it makes"
+    capture:
+      scene: tests/promo/promo.tscn
+      args: ["--promo-scene=res://scenes/play.tscn", "--promo-max={max}", --promo-tail=2.0,
+             --fresh, "--lang={ui}", "--type={type}", "--level={level}", "--seed={seed}", --autoplay,
+             "--think={think}", "--pace={pace}"]
+      defaults: {ui: en, type: sp_cube, level: 2, seed: 3, max: 30, think: 3.5, pace: 2.5}
+      max_seconds: 60
+    approved_claims:
+      - "Picture puzzles that need no reading"
+      - "Puzzles adapt to your child's level"
+      - "Five kinds of thinking skills, from patterns to shapes in space"
+    fallback_copy:
+      hook: "Which cube does this fold into? Ask your child."
+      hook_overlay: "Which cube is it?"
+      outro: "Puzzles that grow with your child. Kawaii IQ, coming soon."
+
+  lab:
+    display_name: Kawaii Lab
+    repo: kawaii-lab
+    status: ready
+    template: experiment_wow
+    made_for_kids: false
+    audience: parents of children aged 5-14
+    stores: [App Store, Google Play]
+    cta: "Coming soon to the App Store & Google Play"
+    end_card: design/promo/end_card.png
+    hook_frame_at: 1.5
+    context: "a clay science experiment: sorting conductors and insulators, wiring a bulb, then Experiment Complete with three stars"
+    capture:
+      scene: tests/promo/promo.tscn
+      # tail 0.3: "Experiment Complete" is the last frame; the Lab Hub that follows is cut
+      args: ["--promo-scene=res://scenes/play.tscn", "--promo-max={max}", --promo-tail=0.3,
+             --fresh, "--lang={ui}", "--lesson={lesson}", --autoplay, "--pace={pace}"]
+      defaults: {ui: en, lesson: g4_m4_l03, max: 35, pace: 1.5}
+      max_seconds: 60
+    approved_claims:
+      - "A cozy clay science lab for kids from kindergarten to grade 9"
+      - "Hands-on experiments with Maestro Bun, Baker Mochi and Pip"
+      - "No mess: every experiment happens on screen"
+    fallback_copy:
+      hook: "Science experiments with no mess to clean up."
+      hook_overlay: "Science, no mess"
+      outro: "A cozy science lab for curious kids. Kawaii Lab, coming soon."
+
+  draw:
+    display_name: Kawaii Draw
+    repo: kawaii-draw
+    status: ready
+    template: timelapse_reveal
+    made_for_kids: false
+    audience: parents of children aged 4-10
+    stores: [App Store, Google Play]
+    cta: "Coming soon to the App Store & Google Play"
+    end_card: design/promo/end_card.png
+    hook_frame_at: 1.0
+    context: "a step-by-step drawing lesson: guide lines, then the outline, a face, colour, and a finished cute gift box"
+    capture:
+      scene: tests/promo/promo.tscn
+      args: ["--promo-scene=res://scenes/lesson.tscn", "--promo-max={max}", --promo-tail=3.0,
+             --fresh, "--lang={ui}", "--autoplay={skill}", "--pace={pace}"]
+      defaults: {ui: en, skill: pro, max: 45, pace: 1.0}
+      max_seconds: 60
+    approved_claims:
+      - "Step-by-step drawing lessons for kids"
+      - "Four art mini-games"
+      - "Works offline"
+    fallback_copy:
+      hook: "From a few lines to a cute drawing, step by step."
+      hook_overlay: "Draw it step by step"
+      outro: "Draw cute friends step by step. Kawaii Draw, coming soon."
+
+  keys:
+    display_name: Kawaii Keys
+    repo: kawaii-keys
+    status: ready
+    template: musical_showcase
+    made_for_kids: false
+    audience: parents of children aged 5-12
+    stores: [App Store, Google Play]
+    cta: "Coming soon to the App Store & Google Play"
+    end_card: design/promo/end_card.png
+    hook_frame_at: 5.0
+    caption: "First piano songs made fun"
+    context: "Twinkle Twinkle Little Star played in a falling-notes rhythm game on a piano, with combo and Perfect hits"
+    capture:
+      scene: tests/promo/promo.tscn
+      args: ["--promo-scene=res://scenes/arcade.tscn", "--promo-max={max}", --promo-tail=2.0,
+             --fresh, "--lang={ui}", "--song={song}", "--autoplay={skill}", --no-intro]
+      defaults: {ui: en, song: twinkle, skill: pro, max: 20}   # public-domain songs only
+      max_seconds: 60
+    approved_claims:
+      - "Learn piano songs step by step"
+      - "A rhythm game that plays along with real songs"
+      - "Play on screen, with a MIDI keyboard, or a real piano"
+      - "Works offline"
+    fallback_copy:
+      hook: "Your child's first piano song, one note at a time."
+      hook_overlay: "First piano songs"
+      outro: "First piano songs made fun. Kawaii Keys, coming soon."
+
+  frets:
+    display_name: Kawaii Frets
+    repo: kawaii-frets
+    status: ready
+    template: musical_showcase
+    made_for_kids: false
+    audience: parents of children aged 6-14
+    stores: [App Store, Google Play]
+    cta: "Coming soon to the App Store & Google Play"
+    end_card: design/promo/end_card.png
+    hook_frame_at: 5.0
+    caption: "First guitar chords made fun"
+    context: "Twinkle Twinkle Little Star strummed in a rhythm game with chord names, combos and Perfect hits"
+    capture:
+      scene: tests/promo/promo.tscn
+      args: ["--promo-scene=res://scenes/arcade.tscn", "--promo-max={max}", --promo-tail=2.0,
+             --fresh, "--lang={ui}", "--song={song}", "--level={level}", "--autoplay={skill}", --no-intro]
+      defaults: {ui: en, song: twinkle, level: 1, skill: pro, max: 20}   # public-domain songs only
+      max_seconds: 60
+    approved_claims:
+      - "Learn guitar chords and songs step by step"
+      - "A strumming rhythm game with real songs"
+      - "Works offline"
+    fallback_copy:
+      hook: "Your child's first guitar chords, made fun."
+      hook_overlay: "First guitar chords"
+      outro: "First guitar chords made fun. Kawaii Frets, coming soon."

@@ -1,0 +1,56 @@
+# Daily promo schedule for scripts/promo_daily.py (see docs/promo_pipeline.md).
+#
+# Each day the runner reads today's jobs, picks the next content item for each app from
+# `rotation` (state in projects/promo_state.json, so every day shows something new),
+# captures + renders, and publishes only when `publish: true` AND that app's copy for the
+# job's locale is `review: approved` (autopilot/promo/locales/<locale>.yaml).
+#
+# Budget: one promo takes ~15-20 min on the Intel Mac (3 min capture + 10-15 min render),
+# so 2-3 jobs per night fit easily between 02:30 and 04:00.
+
+publish: false                # master switch. false = render only (review in projects/)
+platforms: [youtube, facebook, instagram, tiktok]
+use_llm: false                # false = the reviewed fallback copy from locales/*.yaml (recommended)
+allow_paid_voice: false       # true lets zh / ja jobs spend ElevenLabs credits
+
+# Weekday -> jobs. `target` (Stories only) is optional; omitted = rotate zh / en / ja.
+days:
+  mon: [{app: stories, locale: vi}, {app: math, locale: vi}]
+  tue: [{app: keys, locale: vi},    {app: code, locale: vi}]
+  wed: [{app: stories, locale: vi}, {app: draw, locale: vi}]
+  thu: [{app: iq, locale: vi},      {app: frets, locale: vi}]
+  fri: [{app: stories, locale: vi}, {app: lab, locale: vi}]
+  sat: [{app: math, locale: en},    {app: keys, locale: en}]
+  sun: [{app: stories, locale: en}, {app: draw, locale: en}]
+
+# Content rotation per app: each run takes the next item (wraps around).
+rotation:
+  stories:
+    # stories with recorded narration in zh / en / ja (others fall back to phone TTS)
+    story: [ch01_morning_walk, ch02_pastel_bakery, ch03_rainy_library, ch04_grandma_birthday]
+    target: [zh, en, ja]
+  math:
+    lesson: [g1_m1_l03, g1_m3_l03, g1_m5_l03, g1_m7_l03, g1_m9_l03, g2_m1_l03, g2_m3_l03,
+             g2_m5_l03, g2_m7_l03, g2_m9_l03, g3_m1_l03, g3_m2_l04, g3_m3_l03, g3_m5_l03,
+             g3_m7_l03, g3_m9_l03, g4_m1_l03, g4_m3_l03, g4_m5_l03, g4_m7_l03, g4_m9_l03]
+  code:
+    lesson: [g1_m1_l03, g1_m2_l03, g1_m3_l03, g1_m4_l03, g2_m1_l03, g2_m2_l03, g2_m3_l05,
+             g2_m4_l03, g3_m1_l03, g3_m2_l03, g3_m3_l03, g3_m4_l03, g4_m1_l03, g4_m2_l03,
+             g4_m3_l03, g4_m4_l03]
+  lab:
+    lesson: [g1_m1_l03, g1_m2_l03, g1_m3_l03, g1_m4_l03, g2_m1_l03, g2_m2_l03, g2_m3_l03,
+             g2_m4_l03, g3_m1_l03, g3_m2_l03, g3_m3_l03, g3_m4_l03, g4_m1_l03, g4_m2_l03,
+             g4_m3_l03, g4_m4_l03]
+  iq:
+    type: [sp_cube, sp_fold, sp_mirror, sp_rotate, sp_twin, sp_blocks, mx_count, mx_latin,
+           mx_pairs, lg_odd, lg_balance, lg_order]
+    seed: [3, 7, 11, 19, 23]
+  # Keys / Frets: public-domain or Kawaii-original songs only (no Content ID claims).
+  keys:
+    song: [twinkle, mary_lamb, hot_cross_buns, frere_jacques, london_bridge, row_boat,
+           old_macdonald, au_clair, ode_to_joy, brahms_lullaby, minuet_g, fur_elise,
+           jingle_bells, sakura, canon, cat_lullaby, mochi_waltz, rainy_window]
+  frets:
+    song: [twinkle, mary_lamb, frere_jacques, london_bridge, row_boat, old_macdonald,
+           ode_to_joy, sakura, cat_lullaby, mochi_waltz]
+  draw: {}                    # the first lesson (Draw's --lesson ids are not listed yet)

@@ -1,0 +1,129 @@
+# Vietnamese audience (phụ huynh Việt Nam). DRAFT translations by Claude.
+#
+# Review workflow: Gemini Pro pass, then a native speaker. Change `review: draft` to
+# `review: approved` per app once checked; drafts render (--dry-run) but never publish.
+# The only claims a promo may make are approved_claims, so check them for meaning, not
+# just grammar. Brand names (Kawaii Stories, Maestro Bun, Bun, Mochi, Pip) stay as is.
+# {language} = the language the child learns (tiếng Trung / tiếng Anh / tiếng Nhật),
+# {hero} = the story character.
+
+locale:
+  name: Vietnamese
+  ui: vi
+  tts: piper
+  voice: vi_VN-vais1000-medium
+  length_scale: 1.2           # this voice reads fast; slower = warmer for a parent hook
+  words_per_page: 4           # Vietnamese words are one syllable each
+  copy_scale: 1.6             # LLM length limits: syllables, not words
+  banned_terms: [miễn phí, tốt nhất, số 1, số một, thông thạo, thành thạo]
+  language_names: {zh: tiếng Trung, en: tiếng Anh, ja: tiếng Nhật, vi: tiếng Việt}
+  stickers:
+    challenge: "Bé giải được không?"
+    run: "Chạy thử nào!"
+    tada: "Ta-da!"
+    experiment: "Giờ thí nghiệm!"
+    speed: "Tua nhanh {rate}x"
+    step_by_step: "Từng bước một"
+
+apps:
+  stories:
+    review: draft
+    cta: "Sắp ra mắt trên App Store & Google Play"
+    approved_claims:
+      - "Bé học {language} qua những câu chuyện ngắn có tranh minh họa"
+      - "Mỗi câu đều được đọc to, kèm bản dịch bên dưới"
+      - "Bé chạm vào bất kỳ từ nào để nghe phát âm"
+      - "Bé tự chọn diễn biến tiếp theo, mỗi truyện có nhiều cái kết khác nhau"
+      - "Có truyện bằng tiếng Trung, tiếng Anh và tiếng Nhật"
+      - "Dùng được khi không có mạng"
+    fallback_copy:
+      hook: "Truyện trước giờ ngủ giúp bé học {language}."
+      hook_overlay: "Học {language} qua truyện"
+      outro: "{hero} sẽ đi đâu tiếp theo? Cùng khám phá trong Kawaii Stories, sắp ra mắt."
+
+  math:
+    review: draft
+    cta: "Sắp ra mắt trên App Store & Google Play"
+    approved_claims:
+      - "Bài học toán theo phương pháp Singapore cho bé từ mẫu giáo đến lớp 6"
+      - "Maestro Bun hướng dẫn bé trong từng bài học"
+      - "Bài toán có lời văn với mô hình thanh giúp bé thấy cách suy nghĩ"
+    fallback_copy:
+      hook: "Bé nhà bạn có giải được bài này bằng mô hình thanh không?"
+      hook_overlay: "Toán kiểu Singapore"
+      outro: "Học toán cùng Maestro Bun. Kawaii Math, sắp ra mắt."
+
+  code:
+    review: draft
+    cta: "Sắp ra mắt trên App Store & Google Play"
+    approved_claims:
+      - "Câu đố lập trình bằng khối lệnh cho bé từ mẫu giáo trở lên"
+      - "Bé ghép chương trình bằng các khối như Đi, Lặp lại và Nếu"
+      - "Maestro Bun hướng dẫn bé trong từng bài học"
+    fallback_copy:
+      hook: "Chương trình đầu tiên của bé, ghép từng khối một."
+      hook_overlay: "Lập trình từng khối một"
+      outro: "Câu đố lập trình cùng Maestro Bun. Kawaii Code, sắp ra mắt."
+
+  iq:
+    review: draft
+    cta: "Sắp ra mắt trên App Store & Google Play"
+    approved_claims:
+      - "Câu đố bằng hình ảnh, bé không cần biết đọc"
+      - "Câu đố tự điều chỉnh theo trình độ của bé"
+      - "Năm nhóm kỹ năng tư duy, từ quy luật đến hình khối trong không gian"
+    fallback_copy:
+      hook: "Hình này gấp lại thành khối nào? Hỏi bé thử xem."
+      hook_overlay: "Gấp thành khối nào?"
+      outro: "Câu đố lớn lên cùng bé. Kawaii IQ, sắp ra mắt."
+
+  lab:
+    review: draft
+    cta: "Sắp ra mắt trên App Store & Google Play"
+    approved_claims:
+      - "Phòng thí nghiệm khoa học bằng đất sét dễ thương cho bé từ mẫu giáo đến lớp 9"
+      - "Thí nghiệm thực hành cùng Maestro Bun, Baker Mochi và Pip"
+      - "Không bừa bộn: mọi thí nghiệm đều diễn ra trên màn hình"
+    fallback_copy:
+      hook: "Thí nghiệm khoa học mà không phải dọn dẹp."
+      hook_overlay: "Khoa học, không bừa bộn"
+      outro: "Phòng thí nghiệm ấm áp cho bé tò mò. Kawaii Lab, sắp ra mắt."
+
+  draw:
+    review: draft
+    cta: "Sắp ra mắt trên App Store & Google Play"
+    approved_claims:
+      - "Bài học vẽ từng bước cho bé"
+      - "Bốn trò chơi mỹ thuật nhỏ"
+      - "Dùng được khi không có mạng"
+    fallback_copy:
+      hook: "Từ vài nét đơn giản thành bức vẽ dễ thương, từng bước một."
+      hook_overlay: "Vẽ từng bước một"
+      outro: "Vẽ những người bạn dễ thương từng bước. Kawaii Draw, sắp ra mắt."
+
+  keys:
+    review: draft
+    cta: "Sắp ra mắt trên App Store & Google Play"
+    caption: "Bài piano đầu tiên thật vui"
+    approved_claims:
+      - "Học piano qua từng bài hát, từng bước một"
+      - "Trò chơi nhịp điệu chơi theo bài hát thật"
+      - "Chơi trên màn hình, với bàn phím MIDI hoặc đàn piano thật"
+      - "Dùng được khi không có mạng"
+    fallback_copy:
+      hook: "Bài piano đầu tiên của bé, từng nốt một."
+      hook_overlay: "Bài piano đầu tiên"
+      outro: "Học piano thật vui. Kawaii Keys, sắp ra mắt."
+
+  frets:
+    review: draft
+    cta: "Sắp ra mắt trên App Store & Google Play"
+    caption: "Hợp âm guitar đầu tiên thật vui"
+    approved_claims:
+      - "Học hợp âm và bài hát guitar từng bước một"
+      - "Trò chơi nhịp điệu gảy đàn theo bài hát thật"
+      - "Dùng được khi không có mạng"
+    fallback_copy:
+      hook: "Những hợp âm guitar đầu tiên của bé, thật vui."
+      hook_overlay: "Hợp âm guitar đầu tiên"
+      outro: "Học guitar thật vui. Kawaii Frets, sắp ra mắt."

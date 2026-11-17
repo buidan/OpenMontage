@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- LLM router (llm_router.py) on 127.0.0.1:4000, started at login and restarted if it exits.
+     Installed by scripts/install_launchd.sh, which fills in __REPO__ / __PATH__. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.daian.llm-router</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>__REPO__/.venv/bin/python</string>
+    <string>__REPO__/llm_router.py</string>
+  </array>
+  <key>WorkingDirectory</key><string>__REPO__</string>
+  <key>EnvironmentVariables</key>
+  <dict><key>PATH</key><string>__PATH__</string></dict>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>ThrottleInterval</key><integer>30</integer>
+  <key>StandardOutPath</key><string>__REPO__/projects/logs/llm_router.log</string>
+  <key>StandardErrorPath</key><string>__REPO__/projects/logs/llm_router.log</string>
+</dict>
+</plist>

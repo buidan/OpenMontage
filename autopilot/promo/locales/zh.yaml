@@ -1,0 +1,23 @@
+# Chinese audience (Simplified). Locale settings only so far; app copy comes after the
+# Vietnamese round (add an `apps:` section like vi.yaml, review: draft).
+# Voice: ElevenLabs (paid) with Kawaii Stories' zh narrator on eleven_v3 (it reads tones
+# correctly where multilingual v2 does not; see kawaii-stories/docs/audio.md).
+locale:
+  name: Chinese
+  ui: zh_CN
+  tts: elevenlabs
+  voice_id: 4VZIsMPtgggwNg7OXbPY
+  model: eleven_v3
+  language_code: zh
+  cjk: true
+  banned_terms: [免费, 最好, 第一, 流利, 最佳]
+  sticker_font: "/System/Library/Fonts/STHeiti Medium.ttc"
+  language_names: {zh: 中文, en: 英语, ja: 日语, vi: 越南语}
+  stickers:
+    challenge: "你能解出来吗？"
+    run: "运行！"
+    tada: "完成啦！"
+    experiment: "实验时间！"
+    speed: "{rate}倍速"
+    step_by_step: "一步一步"
+apps: {}

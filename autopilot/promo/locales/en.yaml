@@ -1,0 +1,16 @@
+# English audience. App copy lives in apps.yaml (the source language); this file only
+# holds the locale settings and the template sticker words.
+locale:
+  name: English
+  ui: en                      # app interface language for the capture (--lang)
+  tts: piper
+  voice: en_US-lessac-medium
+  words_per_page: 3
+  language_names: {zh: Chinese, en: English, ja: Japanese, vi: Vietnamese}
+  stickers:
+    challenge: "Can you solve it?"
+    run: "Run it!"
+    tada: "Ta-da!"
+    experiment: "Experiment time!"
+    speed: "{rate}x speed"
+    step_by_step: "Step by step"
